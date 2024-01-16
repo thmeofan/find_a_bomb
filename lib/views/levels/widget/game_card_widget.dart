@@ -37,7 +37,10 @@ class CustomCard extends StatelessWidget {
                 ),
         ),
         child: Center(
-          child: isFlipped ? Image.asset('assets/icons/$iconName') : null,
+          // Only show the image if the iconName is not empty
+          child: isFlipped && iconName.isNotEmpty
+              ? Image.asset('assets/icons/$iconName')
+              : null,
         ),
       ),
     );

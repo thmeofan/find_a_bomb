@@ -73,9 +73,7 @@ class _SplashScreenState extends State<SplashScreen> {
             children: [
               Spacer(),
               IconMovingProgressIndicator(
-                icon: Icons.airplanemode_active,
                 progress: progress,
-                iconColor: AppColors.orangeColor,
                 backgroundColor: AppColors.orangeColor.withOpacity(0.5),
                 valueColor: AppColors.orangeColor,
               ),

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
 class IconMovingProgressIndicator extends StatelessWidget {
-  final IconData icon;
   final double progress;
   final Color backgroundColor;
   final Color valueColor;
 
   const IconMovingProgressIndicator({
     Key? key,
-    required this.icon,
     required this.progress,
     required this.backgroundColor,
     required this.valueColor,
@@ -16,7 +14,7 @@ class IconMovingProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double iconSize = 24; // Adjust icon size to your preference
+    double iconSize = 24;
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[

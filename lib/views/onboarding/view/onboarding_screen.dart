@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blocs/onboarding_cubit/onboarding_cubit.dart';
 import '../../../util/app_routes.dart';
-import '../widget/speech_bubble.dart';
 import '../widget/start_game_widget.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -24,22 +23,14 @@ class OnboardingScreen extends StatelessWidget {
         )),
         child: Row(
           children: [
-            Padding(
-              padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.01),
-              child: Image.asset('assets/images/chipmunk.png'),
-            ),
             Column(
               children: [
                 Padding(
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.15,
                       bottom: MediaQuery.of(context).size.height * 0.05),
-                  child: const SpeechBubble(
-                    text1: 'Mouse King',
-                    text2:
-                        'Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis.',
-                  ),
+                  child: const Text(
+                      'The goal of the game is to reveal all the "bomb" cells using the clues. This game requires logical thinking, the ability to analyze and make decisions.'),
                 ),
                 StartGameButton(
                   onTap: () {

@@ -4,7 +4,6 @@ import '../../../data/repository/score_repo.dart';
 import '../../../util/app_routes.dart';
 import '../../app/widgets/navigation_button.dart';
 import '../../app/widgets/score_widget.dart';
-import '../../app/widgets/start_button.dart';
 import '../widget/level_button.dart';
 
 class ProgressScreen extends StatefulWidget {
@@ -17,109 +16,34 @@ class ProgressScreen extends StatefulWidget {
 class _ProgressScreenState extends State<ProgressScreen> {
   final int numberOfLevels = 5;
   int selectedLevelIndex = 0;
+  List<bool> levelsPlayed;
+
+  _ProgressScreenState() : levelsPlayed = List.generate(5, (_) => false);
 
   void _onStartLevel() {
-    switch (selectedLevelIndex) {
-      case 0:
-        if (life >= 1) {
-          Navigator.of(context).pushNamed(AppRoutes.lvl);
-          score -= 50;
-          life -= 1;
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                'Sorry, you\'re out of lives',
-                style: TextStyle(color: Colors.white),
-              ),
-              backgroundColor: Color(0xFFEAAD82),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-              ),
-              margin: EdgeInsets.symmetric(horizontal: 150),
-              behavior: SnackBarBehavior.floating,
-              duration: Duration(seconds: 2),
-            ),
-          );
-        }
-        break;
-
-      case 1:
-        if (life >= 1) {
-          Navigator.of(context).pushNamed(AppRoutes.lvl);
-          score -= 50;
-          life -= 1;
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                'Sorry, you\'re out of lives',
-                style: TextStyle(color: Colors.white),
-              ),
-              backgroundColor: Color(0xFFEAAD82),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-              ),
-              margin: EdgeInsets.symmetric(horizontal: 200),
-              behavior: SnackBarBehavior.floating,
-              duration: Duration(seconds: 2),
-            ),
-          );
-        }
-        break;
-      case 2:
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'This level isn\'t unlocked yet',
-              style: TextStyle(color: Colors.white),
-            ),
-            backgroundColor: Color(0xFFEAAD82),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-            margin: EdgeInsets.symmetric(horizontal: 200),
-            behavior: SnackBarBehavior.floating,
-            duration: Duration(seconds: 2),
+    if (life >= 1) {
+      Navigator.of(context).pushNamed(AppRoutes.lvl);
+      setState(() {
+        levelsPlayed[selectedLevelIndex] = true;
+      });
+      score -= 50;
+      life -= 1;
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Sorry, you\'re out of lives',
+            style: TextStyle(color: Colors.white),
           ),
-        );
-        break;
-      case 3:
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'This level isn\'t unlocked yet',
-              style: TextStyle(color: Colors.white),
-            ),
-            backgroundColor: Color(0xFFEAAD82),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-            margin: EdgeInsets.symmetric(horizontal: 200),
-            behavior: SnackBarBehavior.floating,
-            duration: Duration(seconds: 2),
+          backgroundColor: Color(0xFFEAAD82),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
-        );
-        break;
-      case 4:
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'This level isn\'t unlocked yet',
-              style: TextStyle(color: Colors.white),
-            ),
-            backgroundColor: Color(0xFFEAAD82),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-            margin: EdgeInsets.symmetric(horizontal: 200),
-            behavior: SnackBarBehavior.floating,
-            duration: Duration(seconds: 2),
-          ),
-        );
-        break;
-      default:
-        Navigator.of(context).pushNamed(AppRoutes.lvl);
+          margin: EdgeInsets.symmetric(horizontal: 150),
+          behavior: SnackBarBehavior.floating,
+          duration: Duration(seconds: 2),
+        ),
+      );
     }
   }
 
@@ -127,14 +51,6 @@ class _ProgressScreenState extends State<ProgressScreen> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-
-    final List<Offset> levelButtonPositions = [
-      Offset(screenWidth * 0.15, screenHeight * 0.6),
-      Offset(screenWidth * 0.325, screenHeight * 0.2),
-      Offset(screenWidth * 0.5, screenHeight * 0.6),
-      Offset(screenWidth * 0.65, screenHeight * 0.2),
-      Offset(screenWidth * 0.85, screenHeight * 0.6),
-    ];
 
     return Scaffold(
       body: Container(
@@ -167,7 +83,8 @@ class _ProgressScreenState extends State<ProgressScreen> {
                             });
                             _onStartLevel();
                           },
-                          text: '',
+                          text: 'Level ${selectedLevelIndex + 1}',
+                          beenPlayed: levelsPlayed[selectedLevelIndex],
                         ),
                       ),
                       Positioned(
@@ -179,6 +96,8 @@ class _ProgressScreenState extends State<ProgressScreen> {
                             });
                             _onStartLevel();
                           },
+                          text: 'Level ${selectedLevelIndex + 1}',
+                          beenPlayed: levelsPlayed[selectedLevelIndex],
                         ),
                       ),
                       Positioned(
@@ -190,6 +109,8 @@ class _ProgressScreenState extends State<ProgressScreen> {
                             });
                             _onStartLevel();
                           },
+                          text: 'Level ${selectedLevelIndex + 1}',
+                          beenPlayed: levelsPlayed[selectedLevelIndex],
                         ),
                       ),
                       Positioned(
@@ -201,6 +122,8 @@ class _ProgressScreenState extends State<ProgressScreen> {
                             });
                             _onStartLevel();
                           },
+                          text: 'Level ${selectedLevelIndex + 1}',
+                          beenPlayed: levelsPlayed[selectedLevelIndex],
                         ),
                       ),
                       Positioned(
@@ -212,7 +135,8 @@ class _ProgressScreenState extends State<ProgressScreen> {
                             });
                             _onStartLevel();
                           },
-                          text: '',
+                          text: 'Level ${selectedLevelIndex + 1}',
+                          beenPlayed: levelsPlayed[selectedLevelIndex],
                         ),
                       ),
                     ],

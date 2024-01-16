@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../../data/repository/score_repo.dart';
 import '../../../util/app_routes.dart';
 import '../../app/widgets/heart_widget.dart';
 import '../../app/widgets/navigation_button.dart';
 import '../../app/widgets/score_widget.dart';
 import '../../app/widgets/start_button.dart';
+import '../../consts/app_text_style/menu_style.dart';
 
 class ResultScreen extends StatelessWidget {
   const ResultScreen({super.key});
