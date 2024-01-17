@@ -28,16 +28,18 @@ class CustomCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.0),
           image: isFlipped
               ? const DecorationImage(
-                  image: AssetImage('assets/images/card_face.png'),
+                  image: AssetImage('assets/images/open_tile.png'),
                   fit: BoxFit.contain,
                 )
               : const DecorationImage(
-                  image: AssetImage('assets/images/card_back.png'),
+                  image: AssetImage('assets/images/closed_tile.png'),
                   fit: BoxFit.contain,
                 ),
         ),
         child: Center(
-          child: isFlipped ? Image.asset('assets/icons/$iconName') : null,
+          child: isFlipped && iconName.isNotEmpty
+              ? Image.asset('assets/images/$iconName')
+              : null,
         ),
       ),
     );

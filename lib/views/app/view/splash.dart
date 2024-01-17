@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _simulateProgress() {
-    Future.delayed(const Duration(milliseconds: 100), () {
+    Future.delayed(const Duration(milliseconds: 60), () {
       if (progress < 1.0) {
         setState(() {
           progress += 0.01;
@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
     bool isFirstLaunch = await widget.onboardingRepository.checkFirstTime();
     if (isFirstLaunch) {
       await widget.onboardingRepository.setFirstTime();
-      Navigator.of(context).pushReplacementNamed(widget.onboardingRoute);
+      Navigator.of(context).pushReplacementNamed(AppRoutes.introduction);
     } else {
       Navigator.of(context).pushReplacementNamed(widget.homeRoute);
     }
@@ -58,14 +58,19 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Stack(
         children: <Widget>[
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  AppColors.darkRedColor.withOpacity(0.8),
+                  BlendMode.darken,
+                ),
               ),
             ),
           ),
@@ -73,13 +78,13 @@ class _SplashScreenState extends State<SplashScreen> {
             children: [
               Spacer(),
               IconMovingProgressIndicator(
-                icon: Icons.airplanemode_active,
                 progress: progress,
-                iconColor: AppColors.orangeColor,
                 backgroundColor: AppColors.orangeColor.withOpacity(0.5),
                 valueColor: AppColors.orangeColor,
               ),
-              SizedBox(height: 20),
+              SizedBox(
+                height: screenHeight * 0.05,
+              ),
             ],
           ),
         ],

@@ -2,19 +2,15 @@ import 'package:flutter/material.dart';
 
 class MenuTextStyle {
   static const TextStyle category = TextStyle(
-    fontFamily: 'Poppins',
-    fontSize: 18.0,
-    fontWeight: FontWeight.w400,
-    color: Colors.white,
-    height: 24 / 18,
+    fontFamily: 'Trispace',
+    fontSize: 32.0,
+    fontWeight: FontWeight.w700,
   );
 
-  static const TextStyle gradientTextStyle = TextStyle(
+  static const TextStyle lvlStyle = TextStyle(
     fontFamily: 'Inter',
-    fontSize: 36.0,
-    fontWeight: FontWeight.w900,
+    fontSize: 25.0,
+    fontWeight: FontWeight.w700,
     color: Colors.white,
-    letterSpacing: 1.5,
-    height: 1.0,
   );
 }

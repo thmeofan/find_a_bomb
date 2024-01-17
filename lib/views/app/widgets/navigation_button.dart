@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class NavigationButton extends StatelessWidget {
   const NavigationButton(
       {Key? key,
@@ -20,11 +21,9 @@ class NavigationButton extends StatelessWidget {
         child: Container(
           width: buttonWidth,
           height: buttonWidth,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(assetName),
-              fit: BoxFit.contain,
-            ),
+          child: Image(
+            image: AssetImage(assetName),
+            fit: BoxFit.contain,
           ),
         ),
       ),

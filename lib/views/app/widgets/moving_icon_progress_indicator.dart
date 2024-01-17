@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
 class IconMovingProgressIndicator extends StatelessWidget {
-  final IconData icon;
   final double progress;
   final Color backgroundColor;
   final Color valueColor;
 
   const IconMovingProgressIndicator({
     Key? key,
-    required this.icon,
     required this.progress,
     required this.backgroundColor,
     required this.valueColor,
@@ -16,8 +14,14 @@ class IconMovingProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double iconSize = 24; // Adjust icon size to your preference
+    Size size = MediaQuery.of(context).size;
+    double iconSize = size.height * 0.1;
+    double progressWidth = MediaQuery.of(context).size.width;
+
+    double leftPosition = progress * (progressWidth - iconSize);
+
     return Stack(
+      clipBehavior: Clip.none,
       alignment: Alignment.center,
       children: <Widget>[
         LinearProgressIndicator(
@@ -26,11 +30,15 @@ class IconMovingProgressIndicator extends StatelessWidget {
           valueColor: AlwaysStoppedAnimation<Color>(valueColor),
         ),
         Positioned(
-            left: progress * (MediaQuery.of(context).size.width - iconSize),
-            child: Image.asset(
-              'assets/images/red_fire',
-              height: iconSize,
-            )),
+          left: leftPosition,
+          bottom: -iconSize * 0.35,
+          child: Image.asset(
+            'assets/images/red_fire.png',
+            width: iconSize,
+            height: iconSize,
+            fit: BoxFit.contain,
+          ),
+        ),
       ],
     );
   }

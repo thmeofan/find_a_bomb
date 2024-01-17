@@ -1,61 +1,35 @@
 import 'dart:math';
 
-import 'package:find_a_bomb/views/app/widgets/heart_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../data/repository/score_repo.dart';
+
 import '../../../util/app_routes.dart';
+import '../../app/widgets/heart_widget.dart';
 import '../../app/widgets/navigation_button.dart';
 import '../../consts/app_colors.dart';
 import '../../consts/app_text_style/settings_style.dart';
 import '../widget/blinking_text.dart';
-import '../widget/game_card_widget.dart';
 
-class LevelScreen extends StatefulWidget {
-  const LevelScreen({super.key});
+class SetScreen extends StatefulWidget {
+  const SetScreen({super.key});
 
   @override
-  _LevelScreenState createState() => _LevelScreenState();
+  State<SetScreen> createState() => _SetScreenState();
 }
 
-class _LevelScreenState extends State<LevelScreen> {
-  final String _bombIcon = 'bomb.png';
-  List<String?> _gameIcons = [];
-  List<bool> _cardFlipped = [];
-
+class _SetScreenState extends State<SetScreen> {
   @override
   void initState() {
     super.initState();
-    _initGame();
-  }
 
-  void _initGame() {
-    setState(() {
-      _gameIcons = List<String?>.filled(9, null);
-      _gameIcons[Random().nextInt(_gameIcons.length)] = _bombIcon;
-      _cardFlipped = List<bool>.filled(_gameIcons.length, false);
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.of(context).pushReplacementNamed(AppRoutes.lvl);
     });
-  }
-
-  void _onCardClick(int index) {
-    if (_cardFlipped[index]) return;
-
-    setState(() {
-      _cardFlipped[index] = true;
-    });
-
-    if (_gameIcons[index] == _bombIcon) {
-      _endGame();
-    }
-  }
-
-  void _endGame() {
-    Navigator.of(context).pushNamed(AppRoutes.result);
-    score += 15;
   }
 
   @override
   Widget build(BuildContext context) {
+    final int bombIndex = Random().nextInt(9);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
@@ -94,12 +68,24 @@ class _LevelScreenState extends State<LevelScreen> {
                       crossAxisSpacing: size.width * 0.001,
                       mainAxisSpacing: size.width * 0.005,
                     ),
-                    itemCount: _gameIcons.length,
+                    itemCount: 9,
                     itemBuilder: (context, index) {
-                      return CustomCard(
-                        iconName: _gameIcons[index] ?? '',
-                        isFlipped: _cardFlipped[index],
-                        onTap: () => _onCardClick(index),
+                      return Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          image: const DecorationImage(
+                            image: AssetImage('assets/images/open_tile.png'),
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        child: index == bombIndex
+                            ? Center(
+                                child: Image.asset(
+                                  'assets/images/bomb.png',
+                                  fit: BoxFit.contain,
+                                ),
+                              )
+                            : null,
                       );
                     },
                   ),
@@ -109,9 +95,9 @@ class _LevelScreenState extends State<LevelScreen> {
           ),
           Positioned(
             top: size.height * 0.08,
-            left: size.width * 0.465,
+            left: size.width * 0.43,
             child: BlinkingText(
-              text: 'GO',
+              text: 'SET',
               strokeWidth: 4,
               strokeColor: AppColors.redColor,
               textStyle: SettingsTextStyle.heavyStyle,
@@ -129,7 +115,7 @@ class _LevelScreenState extends State<LevelScreen> {
                       AppRoutes.home,
                     );
                   },
-                  buttonWidth: size.width * 0.05,
+                  buttonWidth: size.width * 0.06,
                 ),
                 NavigationButton(
                   assetName: 'assets/icons/settings.png',
@@ -138,7 +124,7 @@ class _LevelScreenState extends State<LevelScreen> {
                       AppRoutes.settingsScreen,
                     );
                   },
-                  buttonWidth: size.width * 0.05,
+                  buttonWidth: size.width * 0.06,
                 ),
               ],
             ),
