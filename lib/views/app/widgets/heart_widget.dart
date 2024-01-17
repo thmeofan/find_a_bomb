@@ -9,9 +9,13 @@ class HeartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     List<Widget> hearts = List.generate(3, (index) {
       if (index < (life + 1) ~/ 2) {
-        return Image.asset('assets/icons/full_heart.png');
+        return Image.asset(
+          'assets/icons/full_heart.png',
+          height: screenWidth * 0.05,
+        );
       } else {
         return Image.asset('assets/icons/empty_heart.png');
       }

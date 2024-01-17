@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:stroke_text/stroke_text.dart';
 
 import '../../../util/app_routes.dart';
 import '../../app/view/my_in_app_web_view.dart';
+import '../../app/widgets/heart_widget.dart';
 import '../../app/widgets/navigation_button.dart';
 import '../../consts/app_colors.dart';
 import '../../consts/app_text_style/settings_style.dart';
@@ -17,10 +19,14 @@ class SettingsScreen extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  AppColors.darkRedColor.withOpacity(0.4),
+                  BlendMode.darken,
+                ),
               ),
             ),
           ),
@@ -28,14 +34,25 @@ class SettingsScreen extends StatelessWidget {
             top: size.height * 0.1,
             left: size.width * 0.025,
             child: NavigationButton(
-              assetName: 'assets/images/home.png',
+              assetName: 'assets/icons/home.png',
               onTap: () {
                 Navigator.of(context).pushNamed(
                   AppRoutes.home,
                 );
               },
-              buttonWidth: size.width * 0.08,
+              buttonWidth: size.width * 0.06,
             ),
+          ),
+          Positioned(
+            top: size.height * 0.1,
+            right: size.width * 0.02,
+            child: HeartWidget(),
+          ),
+          Positioned(
+            top: size.height * 0.11,
+            right: size.height * 0.22,
+            child: Image.asset('assets/images/boom.png'),
+            height: size.height * 0.8,
           ),
           Center(
             child: Stack(
@@ -52,11 +69,20 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  bottom: -(size.height * 0.1),
-                  right: -(size.width * 0.08),
+                  bottom: (size.height * 0.15),
+                  right: (size.width * 0.035),
                   child: Image.asset(
-                    'assets/images/chipmunk.png',
-                    height: size.height * 0.9,
+                    'assets/images/explosion.png',
+                    height: size.height * 0.4,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                Positioned(
+                  top: (size.height * 0.12),
+                  left: (size.width * 0.03),
+                  child: Image.asset(
+                    'assets/images/explosion.png',
+                    height: size.height * 0.4,
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -64,89 +90,58 @@ class SettingsScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ShaderMask(
-                      shaderCallback: (Rect bounds) {
-                        return const LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: <Color>[
-                            Colors.white,
-                            Color(0xFFEC9851),
-                          ],
-                        ).createShader(bounds);
-                      },
-                      child: TextButton(
-                        child: const Text(
-                          'PRIVACY POLICY',
-                          style: SettingsTextStyle.heavyTextStyle,
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MyInAppWebView(
-                                  url: 'https://google.com/'),
-                            ),
-                          );
-                        },
+                    TextButton(
+                      child: StrokeText(
+                        strokeWidth: 4,
+                        strokeColor: AppColors.redColor,
+                        textStyle: SettingsTextStyle.heavyTextStyle,
+                        text: 'PRIVACY POLICY',
                       ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MyInAppWebView(
+                                url: 'https://google.com/'),
+                          ),
+                        );
+                      },
                     ),
                     SizedBox(height: size.height * 0.02),
-                    ShaderMask(
-                      shaderCallback: (Rect bounds) {
-                        return const LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: <Color>[
-                            Colors.white,
-                            Color(0xFFEC9851),
-                          ],
-                        ).createShader(bounds);
-                      },
-                      child: TextButton(
-                        child: const Text(
-                          'TERMS OF USE',
-                          style: SettingsTextStyle.heavyTextStyle,
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MyInAppWebView(
-                                  url: 'https://google.com/'),
-                            ),
-                          );
-                        },
+                    TextButton(
+                      child: StrokeText(
+                        strokeWidth: 4,
+                        strokeColor: AppColors.redColor,
+                        textStyle: SettingsTextStyle.heavyTextStyle,
+                        text: 'TERMS OF USE',
                       ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MyInAppWebView(
+                                url: 'https://google.com/'),
+                          ),
+                        );
+                      },
                     ),
                     SizedBox(height: size.height * 0.02),
-                    ShaderMask(
-                      shaderCallback: (Rect bounds) {
-                        return const LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: <Color>[
-                            Colors.white,
-                            AppColors.orangeColor,
-                            //   Color(0xFFEC9851),
-                          ],
-                        ).createShader(bounds);
-                      },
-                      child: TextButton(
-                        child: const Text(
-                          'RATE APP',
-                          style: SettingsTextStyle.heavyTextStyle,
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MyInAppWebView(
-                                  url: 'https://google.com/'),
-                            ),
-                          );
-                        },
+                    TextButton(
+                      child: StrokeText(
+                        strokeWidth: 4,
+                        strokeColor: AppColors.redColor,
+                        textStyle: SettingsTextStyle.heavyTextStyle,
+                        text: 'RATE APP',
                       ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MyInAppWebView(
+                                url: 'https://google.com/'),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),

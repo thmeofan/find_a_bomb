@@ -1,10 +1,12 @@
+import 'package:find_a_bomb/views/consts/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:stroke_text/stroke_text.dart';
 
 import '../../../data/repository/score_repo.dart';
 import '../../../util/app_routes.dart';
 import '../../app/widgets/heart_widget.dart';
 import '../../app/widgets/navigation_button.dart';
-import '../../app/widgets/score_widget.dart';
+
 import '../../app/widgets/start_button.dart';
 import '../../consts/app_text_style/menu_style.dart';
 
@@ -19,12 +21,22 @@ class ResultScreen extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  AppColors.darkRedColor.withOpacity(0.4),
+                  BlendMode.darken,
+                ),
               ),
             ),
+          ),
+          Positioned(
+            top: size.height * 0.11,
+            right: size.height * 0.22,
+            child: Image.asset('assets/images/boom.png'),
+            height: size.height * 0.8,
           ),
           Center(
             child: Stack(
@@ -40,45 +52,28 @@ class ResultScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 Positioned(
-                  bottom: -(size.height * 0.1),
-                  right: -(size.width * 0.08),
-                  child: Image.asset(
-                    'assets/images/chipmunk.png',
-                    height: size.height * 0.9,
-                    fit: BoxFit.contain,
-                  ),
+                  top: size.height * 0.11,
+                  child: Image.asset('assets/images/explosion.png'),
+                  height: size.height * 0.75,
                 ),
-                // Content inside the banner
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      'YOUR SCORE\n IS: ${score.toString()}',
-                      style: MenuTextStyle.gradientTextStyle,
+                    StrokeText(
+                      strokeWidth: 4,
+                      strokeColor: AppColors.redColor,
+                      text: 'The level is Over!',
+                      textStyle: MenuTextStyle.category,
+                    ),
+                    StrokeText(
+                      strokeWidth: 4,
+                      strokeColor: AppColors.redColor,
+                      text: '+ ${score.toString()}',
+                      textStyle: MenuTextStyle.category,
                     ),
                   ],
-                ),
-
-                Positioned(
-                  bottom: 10,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      StartButton(
-                        onTap: () {
-                          Navigator.of(context).pushNamed(
-                            AppRoutes.home,
-                          );
-                        },
-                        assetName: 'assets/images/okay.png',
-                        buttonWidth: size.width * 0.2,
-                        buttonHeight: size.height * 0.3,
-                      ),
-                    ],
-                  ),
                 ),
               ],
             ),
@@ -89,33 +84,47 @@ class ResultScreen extends StatelessWidget {
             child: Row(
               children: [
                 NavigationButton(
-                  assetName: 'assets/images/home.png',
+                  assetName: 'assets/icons/home.png',
                   onTap: () {
                     Navigator.of(context).pushNamed(
                       AppRoutes.home,
                     );
                   },
-                  buttonWidth: size.width * 0.08,
+                  buttonWidth: size.width * 0.05,
                 ),
                 NavigationButton(
-                  assetName: 'assets/images/settings.png',
+                  assetName: 'assets/icons/settings.png',
                   onTap: () {
                     Navigator.of(context).pushNamed(
                       AppRoutes.settingsScreen,
                     );
                   },
-                  buttonWidth: size.width * 0.08,
+                  buttonWidth: size.width * 0.05,
                 ),
               ],
             ),
           ),
           Positioned(
-            top: size.height * 0.035,
-            right: -size.width * 0.025,
-            child: const Column(
+            top: size.height * 0.1,
+            right: size.width * 0.02,
+            child: HeartWidget(),
+          ),
+          Positioned(
+            bottom: 10,
+            left: size.width * 0.025,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ScoreWidget(),
-                HeartWidget(),
+                StartButton(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      AppRoutes.home,
+                    );
+                  },
+                  assetName: 'assets/images/next.png',
+                  buttonWidth: size.width * 0.18,
+                  buttonHeight: size.height * 0.24,
+                ),
               ],
             ),
           ),

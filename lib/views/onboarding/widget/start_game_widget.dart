@@ -9,7 +9,7 @@ class StartGameButton extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final buttonWidth = screenWidth * 0.2;
-    final buttonHeight = screenHeight * 0.25;
+    final buttonHeight = screenHeight * 0.3;
 
     return Material(
       color: Colors.transparent,

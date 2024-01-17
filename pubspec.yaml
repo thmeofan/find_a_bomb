@@ -17,6 +17,7 @@ dependencies:
   flutter_svg: ^2.0.9
   bubble: ^1.2.1
   flutter_inappwebview: ^6.0.0
+  stroke_text: ^0.0.2
 
 dev_dependencies:
   flutter_test:
